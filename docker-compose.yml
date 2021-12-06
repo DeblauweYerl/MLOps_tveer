@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  api:
+    name: api
+    build:
+      context: api
+      dockerfile: Dockerfile
+    ports:
+      - 5000:80

@@ -1,0 +1,5 @@
+**/model/
+**/*.png 
+**/*.npy 
+**/*.json 
+!data/Background.png
