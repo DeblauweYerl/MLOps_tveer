@@ -1,9 +1,9 @@
 version: '3.9'
 services:
   api:
-    # image: nathansegers/bird-api-python
+    image: ghcr.io/deblauweyerl/mlops-tveer
     build:
       context: api
       dockerfile: Dockerfile
     ports:
-      - 8000:8000
+      - 8080:80
