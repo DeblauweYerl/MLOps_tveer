@@ -12,8 +12,8 @@ model = keras.models.load_model('model/8522d1cc-40fc-4456-8ad2-4048dded0948.h5')
 
 @app.post("/test")
 async def create_file(file: bytes = File(...)):
-    image = np.array(Image.open(io.BytesIO(file)))
-    image = resize(image, (64,64,3))
+    image = np.array(Image.open(io.BytesIO(file)))[:,:,:3]
+    # image = resize(image, (64,64,3))
     plt.imsave('image.png', image)
     print(image.shape)
     image = np.array([image])

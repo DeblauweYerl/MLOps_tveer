@@ -34,3 +34,14 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      
+            # - name: Build and run dockerfile
+
+        # run: |
+        #   docker build ngnix-v2 .
+        #   docker run -d -p 80:80 ngnix-v2
+
+
+      - name: Kubectl test
+        run: |
+          kubectl get deployments
