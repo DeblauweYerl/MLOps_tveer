@@ -1,24 +1,10 @@
-# build image
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8 as build-image
+FROM python:3.9
 
-COPY ./requirements.txt ./
+WORKDIR /code
+# Currently we copy over our dev packages, as they are still equal.
+COPY ./requirements.dev.txt /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-RUN pip wheel --wheel-dir=/root/wheels -r requirements.txt
-
-# production image
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8 as production-image
-
-COPY --from=build-image /root/wheels /root/wheels
-
-COPY --from=build-image /app/requirements.txt ./
-
-RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--chec>
-RUN apt-get -y update
-RUN apt-get -y install libgl1-mesa-glx dos2unix
-
-RUN pip install --no-index --find-links=/root/wheels -r requirements.txt
-
-COPY ./app /app
-RUN dos2unix /app/prestart.sh
-RUN chmod +x /app/prestart.sh
-ENV PYTHONPATH=/app
+COPY ./main /code/app
+WORKDIR /code/app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
