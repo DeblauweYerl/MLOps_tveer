@@ -1,0 +1,7 @@
+tenacity==6.3.1
+tensorflow
+numpy
+scikit-image
+matplotlib
+fastapi[all]
+pillow
