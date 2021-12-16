@@ -30,10 +30,10 @@ metadata:
   name: tveer-api-svc
   namespace: deblauwe-yerl-tveer
 spec:
+  type: nodeport
   selector:
     workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer
   ports:
     - name: tveer-api-port
-      port: 9999
-      protocol: TCP
-      targetPort: 30007
+      port: 8080
+      nodeport: 30007
