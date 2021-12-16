@@ -25,15 +25,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # - name: Build and Run GitHub registry
-      #   run: |
-      #     docker build -t ghcr.io/deblauweyerl/mlops-tveer:latest api
-      #     docker run -d -p 80:80 ghcr.io/deblauweyerl/mlops-tveer:latest
+      - name: Build and Run GitHub registry
+        run: |
+          docker build -t ghcr.io/deblauweyerl/mlops-tveer:latest api
+          docker run -d -p 80:80 ghcr.io/deblauweyerl/mlops-tveer:latest
 
+      # - name: Kubectl apply yaml file
+      #   run: |
+      #     kubectl config set-context --current --namespace=deblauwyerl-tveer
+      #     kubectl config view --minify | grep namespace:
+      #     kubectl apply -f tveer-api.yaml --validate=false
+
+      
       - name: Kubectl apply yaml file
-        # run: |
-        #   kubectl config set-context --current --namespace=deblauwe-yerl-tveer
-        #   kubectl config view --minify | grep namespace:
         run: |
           kubectl get deployments
-          kubectl apply -f tveer-api.yaml --namespace=deblauwe-yerl-tveer --validate=false
+          
