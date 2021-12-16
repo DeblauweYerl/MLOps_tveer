@@ -25,10 +25,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # - name: Build and Run GitHub registry
-      #   run: |
-      #     docker build -t ghcr.io/deblauweyerl/mlops-tveer:latest api
-      #     docker push ghcr.io/deblauweyerl/mlops-tveer:latest
+      - name: Build and Run GitHub registry
+        run: |
+          docker build -t ghcr.io/deblauweyerl/mlops-tveer:latest api
+          docker push ghcr.io/deblauweyerl/mlops-tveer:latest
 
       - name: Kubectl apply yaml file
         run: |

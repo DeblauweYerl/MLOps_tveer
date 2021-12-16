@@ -15,7 +15,7 @@ model = keras.models.load_model('model/model_b221b9f2-0eef-49bd-85c3-bae8d0f0be1
 
 @app.get("/")
 async def root():
-    return {"message": 'Everything is working!'}
+    return {"message": 'Everything is working kankerhond!'}
 
 @app.post("/test")
 async def create_file(file: bytes = File(...)):
