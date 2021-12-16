@@ -36,4 +36,4 @@ spec:
     - name: tveer-api-port
       port: 9999
       protocol: TCP
-      targetPort: 8080
+      targetPort: 30007
