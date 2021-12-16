@@ -32,6 +32,6 @@ jobs:
 
       - name: Kubectl apply yaml file
         run: |
-          kubectl config set-context --current --namespace=deblauwyerl-tveer
+          kubectl config set-context --current --namespace=deblauwe-yerl-tveer
           kubectl config view --minify | grep namespace:
           kubectl apply -f tveer-api.yaml --validate=false
