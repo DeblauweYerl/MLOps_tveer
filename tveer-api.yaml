@@ -29,6 +29,8 @@ kind: Service
 metadata:
   name: tveer-api-svc
   namespace: deblauwe-yerl-tveer
+  labels:
+    app: tveer-api
 spec:
   type: NodePort
   selector:
