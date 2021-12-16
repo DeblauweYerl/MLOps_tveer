@@ -30,7 +30,5 @@ jobs:
           docker build -t ghcr.io/deblauweyerl/mlops-tveer:latest api
           docker run -d -p 80:80 ghcr.io/deblauweyerl/mlops-tveer:latest
 
-
-      - name: Kubectl test
-        run: |
-          kubectl
+      - name: Kubectl apply yaml file
+        run: kubectl apply -f tveer-api.yaml
