@@ -37,9 +37,9 @@ jobs:
       
             # - name: Build and run dockerfile
 
-        # run: |
-        #   docker build ngnix-v2 .
-        #   docker run -d -p 80:80 ngnix-v2
+        run: |
+          docker build ghcr.io/deblauweyerl/mlops-tveer:latest .
+          docker run -d -p 80:80 ghcr.io/deblauweyerl/mlops-tveer:latest
 
 
       - name: Kubectl test
