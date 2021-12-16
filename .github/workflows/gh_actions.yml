@@ -41,34 +41,34 @@ jobs:
           kubectl config view --minify | grep namespace:
           kubectl apply -f tveer-api-.yaml --validate=false
 
-      - name: "Azure login"  
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      # - name: "Azure login"  
+      #   uses: azure/login@v1
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
           
-      - name: 'Run data prep script'
-        working-directory: steps
-        run: |
-          python 01_DataPreparing.py
+      # - name: 'Run data prep script'
+      #   working-directory: steps
+      #   run: |
+      #     python 01_DataPreparing.py
           
-      - name: 'Run Training script'
-        working-directory: steps
-        run: |
-          python 02_Training.py
+      # - name: 'Run Training script'
+      #   working-directory: steps
+      #   run: |
+      #     python 02_Training.py
           
-      - name: 'Register model'
-        working-directory: steps
-        run: |
-          python 03_RegisterModel.py
+      # - name: 'Register model'
+      #   working-directory: steps
+      #   run: |
+      #     python 03_RegisterModel.py
           
-      - name: 'Deploy model'
-        working-directory: steps
-        run: |
-          python 04_DeployModel.py
+      # - name: 'Deploy model'
+      #   working-directory: steps
+      #   run: |
+      #     python 04_DeployModel.py
       
-      - name: "Save config data"
-        uses: actions/upload-artifact@v2.2.3
-        with:
-          name: config-data
-          path: steps/root/config_states
-          retention-days: 10
+      # - name: "Save config data"
+      #   uses: actions/upload-artifact@v2.2.3
+      #   with:
+      #     name: config-data
+      #     path: steps/root/config_states
+      #     retention-days: 10
