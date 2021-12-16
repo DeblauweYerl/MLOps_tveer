@@ -1,311 +1,1084 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "3"
-    field.cattle.io/publicEndpoints: '[{"addresses":["192.168.10.3"],"port":30007,"protocol":"TCP","serviceName":"deblauwe-yerl-tveer:tveer-api-nodeport","allNodes":true}]'
-  creationTimestamp: "2021-12-16T17:03:37Z"
-  generation: 4
-  managedFields:
-  - apiVersion: apps/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          f:field.cattle.io/publicEndpoints: {}
-      f:spec:
-        f:progressDeadlineSeconds: {}
-        f:replicas: {}
-        f:revisionHistoryLimit: {}
-        f:selector: {}
-        f:strategy:
-          f:rollingUpdate:
-            .: {}
-            f:maxSurge: {}
-            f:maxUnavailable: {}
-          f:type: {}
-        f:template:
-          f:metadata:
-            f:annotations:
-              .: {}
-              f:cattle.io/timestamp: {}
-            f:labels:
-              .: {}
-              f:workload.user.cattle.io/workloadselector: {}
-          f:spec:
-            f:affinity: {}
-            f:containers:
-              k:{"name":"tveer-api-container"}:
-                .: {}
-                f:image: {}
-                f:imagePullPolicy: {}
-                f:name: {}
-                f:ports:
-                  .: {}
-                  k:{"containerPort":80,"protocol":"TCP"}:
-                    .: {}
-                    f:containerPort: {}
-                    f:name: {}
-                    f:protocol: {}
-                f:resources: {}
-                f:terminationMessagePath: {}
-                f:terminationMessagePolicy: {}
-            f:dnsPolicy: {}
-            f:imagePullSecrets:
-              .: {}
-              k:{"name":"deblauwe-yerl-ghcr"}:
-                .: {}
-                f:name: {}
-            f:nodeName: {}
-            f:restartPolicy: {}
-            f:schedulerName: {}
-            f:securityContext: {}
-            f:terminationGracePeriodSeconds: {}
-    manager: rancher
-    operation: Update
-    time: "2021-12-16T17:22:03Z"
-  - apiVersion: apps/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          .: {}
-          f:deployment.kubernetes.io/revision: {}
-      f:status:
-        f:availableReplicas: {}
-        f:conditions:
-          .: {}
-          k:{"type":"Available"}:
-            .: {}
-            f:lastTransitionTime: {}
-            f:lastUpdateTime: {}
-            f:message: {}
-            f:reason: {}
-            f:status: {}
-            f:type: {}
-          k:{"type":"Progressing"}:
-            .: {}
-            f:lastTransitionTime: {}
-            f:lastUpdateTime: {}
-            f:message: {}
-            f:reason: {}
-            f:status: {}
-            f:type: {}
-        f:observedGeneration: {}
-        f:readyReplicas: {}
-        f:replicas: {}
-        f:updatedReplicas: {}
-    manager: kube-controller-manager
-    operation: Update
-    time: "2021-12-16T17:22:30Z"
   name: tveer-api
+  annotations:
+    {}
+#    key: string
+  labels:
+    {}
+#    key: string
   namespace: deblauwe-yerl-tveer
-  resourceVersion: "359036639"
-  uid: 97972227-8831-4930-85bf-6ceb99c87e9d
 spec:
-  progressDeadlineSeconds: 600
-  replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer-tveer-api
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+#      key: string
+#    matchExpressions:
+#      - key: string
+#        operator: string
+#        values:
+#          - string
   template:
     metadata:
-      annotations:
-        cattle.io/timestamp: "2021-12-16T17:22:03Z"
-      creationTimestamp: null
       labels:
         workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer-tveer-api
+#        key: string
+#      annotations:
+#        key: string
+#      clusterName: string
+#      creationTimestamp: string
+#      deletionGracePeriodSeconds: int
+#      deletionTimestamp: string
+#      finalizers:
+#        - string
+#      generateName: string
+#      generation: int
+#      managedFields:
+#        - apiVersion: string
+#          fieldsType: string
+#          fieldsV1: io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1
+#          manager: string
+#          operation: string
+#          time: string
+#      name: string
+#      namespace: string
+#      ownerReferences:
+#        - apiVersion: string
+#          blockOwnerDeletion: boolean
+#          controller: boolean
+#          kind: string
+#          name: string
+#          uid: string
+#      resourceVersion: string
+#      selfLink: string
+#      uid: string
     spec:
-      affinity: {}
       containers:
-      - image: ghcr.io/deblauweyerl/mlops-tveer:latest
-        imagePullPolicy: Always
-        name: tveer-api-container
-        ports:
-        - containerPort: 80
-          name: 80tcp30007
-          protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
+        - imagePullPolicy: Always
+          name: tveer-api-container
+          _active: true
+          image: ghcr.io/deblauweyerl/mlops-tveer:latest
+          ports:
+            - name: 80tcp30007
+              expose: true
+              protocol: TCP
+              containerPort: 80
+              _serviceType: NodePort
+              _listeningPort: 30007
+#        - args:
+#            - string
+#          command:
+#            - string
+#          env:
+#            - name: string
+#              value: string
+#              valueFrom:
+#                configMapKeyRef:
+#                  key: string
+#                  name: string
+#                  optional: boolean
+#                fieldRef:
+#                  apiVersion: string
+#                  fieldPath: string
+#                resourceFieldRef:
+#                  containerName: string
+#                  divisor: string
+#                  resource: string
+#                secretKeyRef:
+#                  key: string
+#                  name: string
+#                  optional: boolean
+#          envFrom:
+#            - configMapRef:
+#                name: string
+#                optional: boolean
+#              prefix: string
+#              secretRef:
+#                name: string
+#                optional: boolean
+#          image: string
+#          imagePullPolicy: string
+#          lifecycle:
+#            postStart:
+#              exec:
+#                command:
+#                  - string
+#              httpGet:
+#                host: string
+#                httpHeaders:
+#                  - name: string
+#                    value: string
+#                path: string
+#                port: string
+#                scheme: string
+#              tcpSocket:
+#                host: string
+#                port: string
+#            preStop:
+#              exec:
+#                command:
+#                  - string
+#              httpGet:
+#                host: string
+#                httpHeaders:
+#                  - name: string
+#                    value: string
+#                path: string
+#                port: string
+#                scheme: string
+#              tcpSocket:
+#                host: string
+#                port: string
+#          livenessProbe:
+#            exec:
+#              command:
+#                - string
+#            failureThreshold: int
+#            httpGet:
+#              host: string
+#              httpHeaders:
+#                - name: string
+#                  value: string
+#              path: string
+#              port: string
+#              scheme: string
+#            initialDelaySeconds: int
+#            periodSeconds: int
+#            successThreshold: int
+#            tcpSocket:
+#              host: string
+#              port: string
+#            terminationGracePeriodSeconds: int
+#            timeoutSeconds: int
+#          name: string
+#          ports:
+#            - containerPort: int
+#              hostIP: string
+#              hostPort: int
+#              name: string
+#              protocol: string
+#          readinessProbe:
+#            exec:
+#              command:
+#                - string
+#            failureThreshold: int
+#            httpGet:
+#              host: string
+#              httpHeaders:
+#                - name: string
+#                  value: string
+#              path: string
+#              port: string
+#              scheme: string
+#            initialDelaySeconds: int
+#            periodSeconds: int
+#            successThreshold: int
+#            tcpSocket:
+#              host: string
+#              port: string
+#            terminationGracePeriodSeconds: int
+#            timeoutSeconds: int
+#          resources:
+#            limits:
+#              key: string
+#            requests:
+#              key: string
+#          securityContext:
+#            allowPrivilegeEscalation: boolean
+#            capabilities:
+#              add:
+#                - string
+#              drop:
+#                - string
+#            privileged: boolean
+#            procMount: string
+#            readOnlyRootFilesystem: boolean
+#            runAsGroup: int
+#            runAsNonRoot: boolean
+#            runAsUser: int
+#            seLinuxOptions:
+#              type: string
+#              level: string
+#              role: string
+#              user: string
+#            seccompProfile:
+#              type: string
+#              localhostProfile: string
+#            windowsOptions:
+#              gmsaCredentialSpec: string
+#              gmsaCredentialSpecName: string
+#              runAsUserName: string
+#          startupProbe:
+#            exec:
+#              command:
+#                - string
+#            failureThreshold: int
+#            httpGet:
+#              host: string
+#              httpHeaders:
+#                - name: string
+#                  value: string
+#              path: string
+#              port: string
+#              scheme: string
+#            initialDelaySeconds: int
+#            periodSeconds: int
+#            successThreshold: int
+#            tcpSocket:
+#              host: string
+#              port: string
+#            terminationGracePeriodSeconds: int
+#            timeoutSeconds: int
+#          stdin: boolean
+#          stdinOnce: boolean
+#          terminationMessagePath: string
+#          terminationMessagePolicy: string
+#          tty: boolean
+#          volumeDevices:
+#            - devicePath: string
+#              name: string
+#          volumeMounts:
+#            - mountPath: string
+#              mountPropagation: string
+#              name: string
+#              readOnly: boolean
+#              subPath: string
+#              subPathExpr: string
+#          workingDir: string
+      affinity:
+#        nodeAffinity:
+#          preferredDuringSchedulingIgnoredDuringExecution:
+#            - preference:
+#                matchExpressions:
+#                  - key: string
+#                    operator: string
+#                    values:
+#                      - string
+#                matchFields:
+#                  - key: string
+#                    operator: string
+#                    values:
+#                      - string
+#              weight: int
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            nodeSelectorTerms:
+#              - matchExpressions:
+#                  - key: string
+#                    operator: string
+#                    values:
+#                      - string
+#                matchFields:
+#                  - key: string
+#                    operator: string
+#                    values:
+#                      - string
+#        podAffinity:
+#          preferredDuringSchedulingIgnoredDuringExecution:
+#            - podAffinityTerm:
+#                labelSelector:
+#                  matchExpressions:
+#                    - key: string
+#                      operator: string
+#                      values:
+#                        - string
+#                  matchLabels:
+#                    key: string
+#                namespaceSelector:
+#                  matchExpressions:
+#                    - key: string
+#                      operator: string
+#                      values:
+#                        - string
+#                  matchLabels:
+#                    key: string
+#                namespaces:
+#                  - string
+#                topologyKey: string
+#              weight: int
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            - labelSelector:
+#                matchExpressions:
+#                  - key: string
+#                    operator: string
+#                    values:
+#                      - string
+#                matchLabels:
+#                  key: string
+#              namespaceSelector:
+#                matchExpressions:
+#                  - key: string
+#                    operator: string
+#                    values:
+#                      - string
+#                matchLabels:
+#                  key: string
+#              namespaces:
+#                - string
+#              topologyKey: string
+#        podAntiAffinity:
+#          preferredDuringSchedulingIgnoredDuringExecution:
+#            - podAffinityTerm:
+#                labelSelector:
+#                  matchExpressions:
+#                    - key: string
+#                      operator: string
+#                      values:
+#                        - string
+#                  matchLabels:
+#                    key: string
+#                namespaceSelector:
+#                  matchExpressions:
+#                    - key: string
+#                      operator: string
+#                      values:
+#                        - string
+#                  matchLabels:
+#                    key: string
+#                namespaces:
+#                  - string
+#                topologyKey: string
+#              weight: int
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            - labelSelector:
+#                matchExpressions:
+#                  - key: string
+#                    operator: string
+#                    values:
+#                      - string
+#                matchLabels:
+#                  key: string
+#              namespaceSelector:
+#                matchExpressions:
+#                  - key: string
+#                    operator: string
+#                    values:
+#                      - string
+#                matchLabels:
+#                  key: string
+#              namespaces:
+#                - string
+#              topologyKey: string
       imagePullSecrets:
-      - name: deblauwe-yerl-ghcr
+        - name: deblauwe-yerl-ghcr
+#        - name: string
+      initContainers:
+#        - args:
+#            - string
+#          command:
+#            - string
+#          env:
+#            - name: string
+#              value: string
+#              valueFrom:
+#                configMapKeyRef:
+#                  key: string
+#                  name: string
+#                  optional: boolean
+#                fieldRef:
+#                  apiVersion: string
+#                  fieldPath: string
+#                resourceFieldRef:
+#                  containerName: string
+#                  divisor: string
+#                  resource: string
+#                secretKeyRef:
+#                  key: string
+#                  name: string
+#                  optional: boolean
+#          envFrom:
+#            - configMapRef:
+#                name: string
+#                optional: boolean
+#              prefix: string
+#              secretRef:
+#                name: string
+#                optional: boolean
+#          image: string
+#          imagePullPolicy: string
+#          lifecycle:
+#            postStart:
+#              exec:
+#                command:
+#                  - string
+#              httpGet:
+#                host: string
+#                httpHeaders:
+#                  - name: string
+#                    value: string
+#                path: string
+#                port: string
+#                scheme: string
+#              tcpSocket:
+#                host: string
+#                port: string
+#            preStop:
+#              exec:
+#                command:
+#                  - string
+#              httpGet:
+#                host: string
+#                httpHeaders:
+#                  - name: string
+#                    value: string
+#                path: string
+#                port: string
+#                scheme: string
+#              tcpSocket:
+#                host: string
+#                port: string
+#          livenessProbe:
+#            exec:
+#              command:
+#                - string
+#            failureThreshold: int
+#            httpGet:
+#              host: string
+#              httpHeaders:
+#                - name: string
+#                  value: string
+#              path: string
+#              port: string
+#              scheme: string
+#            initialDelaySeconds: int
+#            periodSeconds: int
+#            successThreshold: int
+#            tcpSocket:
+#              host: string
+#              port: string
+#            terminationGracePeriodSeconds: int
+#            timeoutSeconds: int
+#          name: string
+#          ports:
+#            - containerPort: int
+#              hostIP: string
+#              hostPort: int
+#              name: string
+#              protocol: string
+#          readinessProbe:
+#            exec:
+#              command:
+#                - string
+#            failureThreshold: int
+#            httpGet:
+#              host: string
+#              httpHeaders:
+#                - name: string
+#                  value: string
+#              path: string
+#              port: string
+#              scheme: string
+#            initialDelaySeconds: int
+#            periodSeconds: int
+#            successThreshold: int
+#            tcpSocket:
+#              host: string
+#              port: string
+#            terminationGracePeriodSeconds: int
+#            timeoutSeconds: int
+#          resources:
+#            limits:
+#              key: string
+#            requests:
+#              key: string
+#          securityContext:
+#            allowPrivilegeEscalation: boolean
+#            capabilities:
+#              add:
+#                - string
+#              drop:
+#                - string
+#            privileged: boolean
+#            procMount: string
+#            readOnlyRootFilesystem: boolean
+#            runAsGroup: int
+#            runAsNonRoot: boolean
+#            runAsUser: int
+#            seLinuxOptions:
+#              type: string
+#              level: string
+#              role: string
+#              user: string
+#            seccompProfile:
+#              type: string
+#              localhostProfile: string
+#            windowsOptions:
+#              gmsaCredentialSpec: string
+#              gmsaCredentialSpecName: string
+#              runAsUserName: string
+#          startupProbe:
+#            exec:
+#              command:
+#                - string
+#            failureThreshold: int
+#            httpGet:
+#              host: string
+#              httpHeaders:
+#                - name: string
+#                  value: string
+#              path: string
+#              port: string
+#              scheme: string
+#            initialDelaySeconds: int
+#            periodSeconds: int
+#            successThreshold: int
+#            tcpSocket:
+#              host: string
+#              port: string
+#            terminationGracePeriodSeconds: int
+#            timeoutSeconds: int
+#          stdin: boolean
+#          stdinOnce: boolean
+#          terminationMessagePath: string
+#          terminationMessagePolicy: string
+#          tty: boolean
+#          volumeDevices:
+#            - devicePath: string
+#              name: string
+#          volumeMounts:
+#            - mountPath: string
+#              mountPropagation: string
+#              name: string
+#              readOnly: boolean
+#              subPath: string
+#              subPathExpr: string
+#          workingDir: string
       nodeName: deblauwe-yerl
+      nodeSelector:
+        {}
+#        key: string
       restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 1
-  conditions:
-  - lastTransitionTime: "2021-12-16T17:17:41Z"
-    lastUpdateTime: "2021-12-16T17:17:41Z"
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: "True"
-    type: Available
-  - lastTransitionTime: "2021-12-16T17:03:37Z"
-    lastUpdateTime: "2021-12-16T17:22:30Z"
-    message: ReplicaSet "tveer-api-b7f664497" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: "True"
-    type: Progressing
-  observedGeneration: 4
-  readyReplicas: 1
+      volumes:
+#        - awsElasticBlockStore:
+#            fsType: string
+#            partition: int
+#            readOnly: boolean
+#            volumeID: string
+#          azureDisk:
+#            cachingMode: string
+#            diskName: string
+#            diskURI: string
+#            fsType: string
+#            kind: string
+#            readOnly: boolean
+#          azureFile:
+#            readOnly: boolean
+#            secretName: string
+#            shareName: string
+#          cephfs:
+#            monitors:
+#              - string
+#            path: string
+#            readOnly: boolean
+#            secretFile: string
+#            secretRef:
+#              name: string
+#            user: string
+#          cinder:
+#            fsType: string
+#            readOnly: boolean
+#            secretRef:
+#              name: string
+#            volumeID: string
+#          configMap:
+#            defaultMode: int
+#            items:
+#              - key: string
+#                mode: int
+#                path: string
+#            name: string
+#            optional: boolean
+#          csi:
+#            driver: string
+#            fsType: string
+#            nodePublishSecretRef:
+#              name: string
+#            readOnly: boolean
+#            volumeAttributes:
+#              key: string
+#          downwardAPI:
+#            defaultMode: int
+#            items:
+#              - fieldRef:
+#                  apiVersion: string
+#                  fieldPath: string
+#                mode: int
+#                path: string
+#                resourceFieldRef:
+#                  containerName: string
+#                  divisor: string
+#                  resource: string
+#          emptyDir:
+#            medium: string
+#            sizeLimit: string
+#          ephemeral:
+#            volumeClaimTemplate:
+#              metadata:
+#                annotations:
+#                  key: string
+#                clusterName: string
+#                creationTimestamp: string
+#                deletionGracePeriodSeconds: int
+#                deletionTimestamp: string
+#                finalizers:
+#                  - string
+#                generateName: string
+#                generation: int
+#                labels:
+#                  key: string
+#                managedFields:
+#                  - apiVersion: string
+#                    fieldsType: string
+#                    fieldsV1: io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1
+#                    manager: string
+#                    operation: string
+#                    time: string
+#                name: string
+#                namespace: string
+#                ownerReferences:
+#                  - apiVersion: string
+#                    blockOwnerDeletion: boolean
+#                    controller: boolean
+#                    kind: string
+#                    name: string
+#                    uid: string
+#                resourceVersion: string
+#                selfLink: string
+#                uid: string
+#              spec:
+#                accessModes:
+#                  - string
+#                dataSource:
+#                  apiGroup: string
+#                  kind: string
+#                  name: string
+#                resources:
+#                  limits:
+#                    key: string
+#                  requests:
+#                    key: string
+#                selector:
+#                  matchExpressions:
+#                    - key: string
+#                      operator: string
+#                      values:
+#                        - string
+#                  matchLabels:
+#                    key: string
+#                storageClassName: string
+#                volumeMode: string
+#                volumeName: string
+#          fc:
+#            fsType: string
+#            lun: int
+#            readOnly: boolean
+#            targetWWNs:
+#              - string
+#            wwids:
+#              - string
+#          flexVolume:
+#            driver: string
+#            fsType: string
+#            options:
+#              key: string
+#            readOnly: boolean
+#            secretRef:
+#              name: string
+#          flocker:
+#            datasetName: string
+#            datasetUUID: string
+#          gcePersistentDisk:
+#            fsType: string
+#            partition: int
+#            pdName: string
+#            readOnly: boolean
+#          gitRepo:
+#            directory: string
+#            repository: string
+#            revision: string
+#          glusterfs:
+#            endpoints: string
+#            path: string
+#            readOnly: boolean
+#          hostPath:
+#            type: string
+#            path: string
+#          iscsi:
+#            chapAuthDiscovery: boolean
+#            chapAuthSession: boolean
+#            fsType: string
+#            initiatorName: string
+#            iqn: string
+#            iscsiInterface: string
+#            lun: int
+#            portals:
+#              - string
+#            readOnly: boolean
+#            secretRef:
+#              name: string
+#            targetPortal: string
+#          name: string
+#          nfs:
+#            path: string
+#            readOnly: boolean
+#            server: string
+#          persistentVolumeClaim:
+#            claimName: string
+#            readOnly: boolean
+#          photonPersistentDisk:
+#            fsType: string
+#            pdID: string
+#          portworxVolume:
+#            fsType: string
+#            readOnly: boolean
+#            volumeID: string
+#          projected:
+#            defaultMode: int
+#            sources:
+#              - configMap:
+#                  items:
+#                    - key: string
+#                      mode: int
+#                      path: string
+#                  name: string
+#                  optional: boolean
+#                downwardAPI:
+#                  items:
+#                    - fieldRef:
+#                        apiVersion: string
+#                        fieldPath: string
+#                      mode: int
+#                      path: string
+#                      resourceFieldRef:
+#                        containerName: string
+#                        divisor: string
+#                        resource: string
+#                secret:
+#                  items:
+#                    - key: string
+#                      mode: int
+#                      path: string
+#                  name: string
+#                  optional: boolean
+#                serviceAccountToken:
+#                  audience: string
+#                  expirationSeconds: int
+#                  path: string
+#          quobyte:
+#            group: string
+#            readOnly: boolean
+#            registry: string
+#            tenant: string
+#            user: string
+#            volume: string
+#          rbd:
+#            fsType: string
+#            image: string
+#            keyring: string
+#            monitors:
+#              - string
+#            pool: string
+#            readOnly: boolean
+#            secretRef:
+#              name: string
+#            user: string
+#          scaleIO:
+#            fsType: string
+#            gateway: string
+#            protectionDomain: string
+#            readOnly: boolean
+#            secretRef:
+#              name: string
+#            sslEnabled: boolean
+#            storageMode: string
+#            storagePool: string
+#            system: string
+#            volumeName: string
+#          secret:
+#            defaultMode: int
+#            items:
+#              - key: string
+#                mode: int
+#                path: string
+#            optional: boolean
+#            secretName: string
+#          storageos:
+#            fsType: string
+#            readOnly: boolean
+#            secretRef:
+#              name: string
+#            volumeName: string
+#            volumeNamespace: string
+#          vsphereVolume:
+#            fsType: string
+#            storagePolicyID: string
+#            storagePolicyName: string
+#            volumePath: string
+#      activeDeadlineSeconds: int
+#      automountServiceAccountToken: boolean
+#      dnsConfig:
+#        nameservers:
+#          - string
+#        options:
+#          - name: string
+#            value: string
+#        searches:
+#          - string
+#      dnsPolicy: string
+#      enableServiceLinks: boolean
+#      ephemeralContainers:
+#        - args:
+#            - string
+#          command:
+#            - string
+#          env:
+#            - name: string
+#              value: string
+#              valueFrom:
+#                configMapKeyRef:
+#                  key: string
+#                  name: string
+#                  optional: boolean
+#                fieldRef:
+#                  apiVersion: string
+#                  fieldPath: string
+#                resourceFieldRef:
+#                  containerName: string
+#                  divisor: string
+#                  resource: string
+#                secretKeyRef:
+#                  key: string
+#                  name: string
+#                  optional: boolean
+#          envFrom:
+#            - configMapRef:
+#                name: string
+#                optional: boolean
+#              prefix: string
+#              secretRef:
+#                name: string
+#                optional: boolean
+#          image: string
+#          imagePullPolicy: string
+#          lifecycle:
+#            postStart:
+#              exec:
+#                command:
+#                  - string
+#              httpGet:
+#                host: string
+#                httpHeaders:
+#                  - name: string
+#                    value: string
+#                path: string
+#                port: string
+#                scheme: string
+#              tcpSocket:
+#                host: string
+#                port: string
+#            preStop:
+#              exec:
+#                command:
+#                  - string
+#              httpGet:
+#                host: string
+#                httpHeaders:
+#                  - name: string
+#                    value: string
+#                path: string
+#                port: string
+#                scheme: string
+#              tcpSocket:
+#                host: string
+#                port: string
+#          livenessProbe:
+#            exec:
+#              command:
+#                - string
+#            failureThreshold: int
+#            httpGet:
+#              host: string
+#              httpHeaders:
+#                - name: string
+#                  value: string
+#              path: string
+#              port: string
+#              scheme: string
+#            initialDelaySeconds: int
+#            periodSeconds: int
+#            successThreshold: int
+#            tcpSocket:
+#              host: string
+#              port: string
+#            terminationGracePeriodSeconds: int
+#            timeoutSeconds: int
+#          name: string
+#          ports:
+#            - containerPort: int
+#              hostIP: string
+#              hostPort: int
+#              name: string
+#              protocol: string
+#          readinessProbe:
+#            exec:
+#              command:
+#                - string
+#            failureThreshold: int
+#            httpGet:
+#              host: string
+#              httpHeaders:
+#                - name: string
+#                  value: string
+#              path: string
+#              port: string
+#              scheme: string
+#            initialDelaySeconds: int
+#            periodSeconds: int
+#            successThreshold: int
+#            tcpSocket:
+#              host: string
+#              port: string
+#            terminationGracePeriodSeconds: int
+#            timeoutSeconds: int
+#          resources:
+#            limits:
+#              key: string
+#            requests:
+#              key: string
+#          securityContext:
+#            allowPrivilegeEscalation: boolean
+#            capabilities:
+#              add:
+#                - string
+#              drop:
+#                - string
+#            privileged: boolean
+#            procMount: string
+#            readOnlyRootFilesystem: boolean
+#            runAsGroup: int
+#            runAsNonRoot: boolean
+#            runAsUser: int
+#            seLinuxOptions:
+#              type: string
+#              level: string
+#              role: string
+#              user: string
+#            seccompProfile:
+#              type: string
+#              localhostProfile: string
+#            windowsOptions:
+#              gmsaCredentialSpec: string
+#              gmsaCredentialSpecName: string
+#              runAsUserName: string
+#          startupProbe:
+#            exec:
+#              command:
+#                - string
+#            failureThreshold: int
+#            httpGet:
+#              host: string
+#              httpHeaders:
+#                - name: string
+#                  value: string
+#              path: string
+#              port: string
+#              scheme: string
+#            initialDelaySeconds: int
+#            periodSeconds: int
+#            successThreshold: int
+#            tcpSocket:
+#              host: string
+#              port: string
+#            terminationGracePeriodSeconds: int
+#            timeoutSeconds: int
+#          stdin: boolean
+#          stdinOnce: boolean
+#          targetContainerName: string
+#          terminationMessagePath: string
+#          terminationMessagePolicy: string
+#          tty: boolean
+#          volumeDevices:
+#            - devicePath: string
+#              name: string
+#          volumeMounts:
+#            - mountPath: string
+#              mountPropagation: string
+#              name: string
+#              readOnly: boolean
+#              subPath: string
+#              subPathExpr: string
+#          workingDir: string
+#      hostAliases:
+#        - hostnames:
+#            - string
+#          ip: string
+#      hostIPC: boolean
+#      hostNetwork: boolean
+#      hostPID: boolean
+#      hostname: string
+#      overhead:
+#        key: string
+#      preemptionPolicy: string
+#      priority: int
+#      priorityClassName: string
+#      readinessGates:
+#        - conditionType: string
+#      runtimeClassName: string
+#      schedulerName: string
+#      securityContext:
+#        fsGroup: int
+#        fsGroupChangePolicy: string
+#        runAsGroup: int
+#        runAsNonRoot: boolean
+#        runAsUser: int
+#        seLinuxOptions:
+#          type: string
+#          level: string
+#          role: string
+#          user: string
+#        seccompProfile:
+#          type: string
+#          localhostProfile: string
+#        supplementalGroups:
+#          - int
+#        sysctls:
+#          - name: string
+#            value: string
+#        windowsOptions:
+#          gmsaCredentialSpec: string
+#          gmsaCredentialSpecName: string
+#          runAsUserName: string
+#      serviceAccount: string
+#      serviceAccountName: string
+#      setHostnameAsFQDN: boolean
+#      shareProcessNamespace: boolean
+#      subdomain: string
+#      terminationGracePeriodSeconds: int
+#      tolerations:
+#        - effect: string
+#          key: string
+#          operator: string
+#          tolerationSeconds: int
+#          value: string
+#      topologySpreadConstraints:
+#        - labelSelector:
+#            matchExpressions:
+#              - key: string
+#                operator: string
+#                values:
+#                  - string
+#            matchLabels:
+#              key: string
+#          maxSkew: int
+#          topologyKey: string
+#          whenUnsatisfiable: string
   replicas: 1
-  updatedReplicas: 1
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   annotations:
-#     field.cattle.io/targetWorkloadIds: '[''deblauwe-yerl-tveer/tveer-api'']'
-#     management.cattle.io/ui-managed: "true"
-#   creationTimestamp: "2021-12-16T17:03:37Z"
-#   managedFields:
-#   - apiVersion: v1
-#     fieldsType: FieldsV1
-#     fieldsV1:
-#       f:metadata:
-#         f:annotations:
-#           .: {}
-#           f:field.cattle.io/targetWorkloadIds: {}
-#           f:management.cattle.io/ui-managed: {}
-#         f:ownerReferences:
-#           .: {}
-#           k:{"uid":"97972227-8831-4930-85bf-6ceb99c87e9d"}:
-#             .: {}
-#             f:apiVersion: {}
-#             f:controller: {}
-#             f:kind: {}
-#             f:name: {}
-#             f:uid: {}
-#       f:spec:
-#         f:ports:
-#           .: {}
-#           k:{"port":80,"protocol":"TCP"}:
-#             .: {}
-#             f:name: {}
-#             f:port: {}
-#             f:protocol: {}
-#             f:targetPort: {}
-#         f:selector:
-#           .: {}
-#           f:workload.user.cattle.io/workloadselector: {}
-#         f:sessionAffinity: {}
-#         f:type: {}
-#     manager: rancher
-#     operation: Update
-#     time: "2021-12-16T17:09:17Z"
-#   name: tveer-api
-#   namespace: deblauwe-yerl-tveer
-#   ownerReferences:
-#   - apiVersion: apps/v1
-#     controller: true
-#     kind: Deployment
-#     name: tveer-api
-#     uid: 97972227-8831-4930-85bf-6ceb99c87e9d
-#   resourceVersion: "358998711"
-#   uid: 5220a5fe-a061-41f0-843e-dd3cfdb65e2f
-# spec:
-#   clusterIP: 10.43.155.93
-#   clusterIPs:
-#   - 10.43.155.93
-#   ipFamilies:
-#   - IPv4
-#   ipFamilyPolicy: SingleStack
-#   ports:
-#   - name: 80tcp30007
-#     port: 80
-#     protocol: TCP
-#     targetPort: 80
-#   selector:
-#     workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer-tveer-api
-#   sessionAffinity: None
-#   type: ClusterIP
-# status:
-#   loadBalancer: {}
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   annotations:
-#     field.cattle.io/publicEndpoints: '[{"addresses":["192.168.10.3"],"port":30007,"protocol":"TCP","serviceName":"deblauwe-yerl-tveer:tveer-api-nodeport","allNodes":true}]'
-#     field.cattle.io/targetWorkloadIds: '[''deblauwe-yerl-tveer/tveer-api'']'
-#     management.cattle.io/ui-managed: "true"
-#   creationTimestamp: "2021-12-16T17:03:37Z"
-#   managedFields:
-#   - apiVersion: v1
-#     fieldsType: FieldsV1
-#     fieldsV1:
-#       f:metadata:
-#         f:annotations:
-#           .: {}
-#           f:field.cattle.io/publicEndpoints: {}
-#           f:field.cattle.io/targetWorkloadIds: {}
-#           f:management.cattle.io/ui-managed: {}
-#         f:ownerReferences:
-#           .: {}
-#           k:{"uid":"97972227-8831-4930-85bf-6ceb99c87e9d"}:
-#             .: {}
-#             f:apiVersion: {}
-#             f:controller: {}
-#             f:kind: {}
-#             f:name: {}
-#             f:uid: {}
-#       f:spec:
-#         f:externalTrafficPolicy: {}
-#         f:ports:
-#           .: {}
-#           k:{"port":80,"protocol":"TCP"}:
-#             .: {}
-#             f:name: {}
-#             f:nodePort: {}
-#             f:port: {}
-#             f:protocol: {}
-#             f:targetPort: {}
-#         f:selector:
-#           .: {}
-#           f:workload.user.cattle.io/workloadselector: {}
-#         f:sessionAffinity: {}
-#         f:type: {}
-#     manager: rancher
-#     operation: Update
-#     time: "2021-12-16T17:09:18Z"
-#   name: tveer-api-nodeport
-#   namespace: deblauwe-yerl-tveer
-#   ownerReferences:
-#   - apiVersion: apps/v1
-#     controller: true
-#     kind: Deployment
-#     name: tveer-api
-#     uid: 97972227-8831-4930-85bf-6ceb99c87e9d
-#   resourceVersion: "358998715"
-#   uid: c6c41efe-645e-43fc-8cf9-fbd1d6ef3a84
-# spec:
-#   clusterIP: 10.43.139.48
-#   clusterIPs:
-#   - 10.43.139.48
-#   externalTrafficPolicy: Cluster
-#   ipFamilies:
-#   - IPv4
-#   ipFamilyPolicy: SingleStack
-#   ports:
-#   - name: 80tcp30007
-#     nodePort: 30007
-#     port: 80
-#     protocol: TCP
-#     targetPort: 80
-#   selector:
-#     workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer-tveer-api
-#   sessionAffinity: None
-#   type: NodePort
-# status:
-#   loadBalancer: {}
+#  minReadySeconds: int
+#  paused: boolean
+#  progressDeadlineSeconds: int
+#  revisionHistoryLimit: int
+#  strategy:
+#    type: string
+#    rollingUpdate:
+#      maxSurge: string
+#      maxUnavailable: string
