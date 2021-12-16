@@ -22,7 +22,7 @@ spec:
             name: 8080tcp
             protocol: TCP
             _serviceType: ClusterIP # Register it as a ClusterIP service
-      nodeName: remy-ian # Change the name of your node!
+      nodeName: remy-ian 
 ---
 apiVersion: v1
 kind: Service
