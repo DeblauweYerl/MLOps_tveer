@@ -29,12 +29,10 @@ kind: Service
 metadata:
   name: tveer-api-svc
   namespace: deblauwe-yerl-tveer
-  labels:
-    app: tveer-api
 spec:
   type: NodePort
   selector:
-    workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer
+    workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer-tveer-api
   ports:
     - name: tveer-api-port
       port: 8080
