@@ -39,7 +39,7 @@ jobs:
 
       - name: Build and Run GitHub registry
         run: |
-          docker build ghcr.io/deblauweyerl/mlops-tveer:latest .
+          docker build -t ghcr.io/deblauweyerl/mlops-tveer:latest api
           docker run -d -p 80:80 ghcr.io/deblauweyerl/mlops-tveer:latest
 
 
