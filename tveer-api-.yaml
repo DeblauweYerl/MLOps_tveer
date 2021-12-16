@@ -1,0 +1,39 @@
+# tveer-api.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tveer-api
+  namespace: deblauwe-yerl-tveer # Change to your own namespace!
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tveer-api
+  template:
+    metadata:
+      labels:
+        app: tveer-api
+    spec:
+      containers:
+        - image: ghcr.io/nathansegers/mlops-exam-2-fastapi:latest
+          name: tveer-api-container
+          ports:
+          - containerPort: 8080 # The interal port of the app
+            name: 8080tcp
+            protocol: TCP
+            _serviceType: ClusterIP # Register it as a ClusterIP service
+      nodeName: remy-ian 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tveer-api-svc
+  namespace: deblauwe-yerl-tveer
+spec:
+  type: NodePort
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer-tveer-api
+  ports:
+    - name: tveer-api-port
+      port: 8080
+      nodePort: 30007

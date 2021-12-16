@@ -1,39 +1,311 @@
-# tveer-api.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "3"
+    field.cattle.io/publicEndpoints: '[{"addresses":["192.168.10.3"],"port":30007,"protocol":"TCP","serviceName":"deblauwe-yerl-tveer:tveer-api-nodeport","allNodes":true}]'
+  creationTimestamp: "2021-12-16T17:03:37Z"
+  generation: 4
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:field.cattle.io/publicEndpoints: {}
+      f:spec:
+        f:progressDeadlineSeconds: {}
+        f:replicas: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:strategy:
+          f:rollingUpdate:
+            .: {}
+            f:maxSurge: {}
+            f:maxUnavailable: {}
+          f:type: {}
+        f:template:
+          f:metadata:
+            f:annotations:
+              .: {}
+              f:cattle.io/timestamp: {}
+            f:labels:
+              .: {}
+              f:workload.user.cattle.io/workloadselector: {}
+          f:spec:
+            f:affinity: {}
+            f:containers:
+              k:{"name":"tveer-api-container"}:
+                .: {}
+                f:image: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:ports:
+                  .: {}
+                  k:{"containerPort":80,"protocol":"TCP"}:
+                    .: {}
+                    f:containerPort: {}
+                    f:name: {}
+                    f:protocol: {}
+                f:resources: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+            f:dnsPolicy: {}
+            f:imagePullSecrets:
+              .: {}
+              k:{"name":"deblauwe-yerl-ghcr"}:
+                .: {}
+                f:name: {}
+            f:nodeName: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:terminationGracePeriodSeconds: {}
+    manager: rancher
+    operation: Update
+    time: "2021-12-16T17:22:03Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:deployment.kubernetes.io/revision: {}
+      f:status:
+        f:availableReplicas: {}
+        f:conditions:
+          .: {}
+          k:{"type":"Available"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Progressing"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+        f:observedGeneration: {}
+        f:readyReplicas: {}
+        f:replicas: {}
+        f:updatedReplicas: {}
+    manager: kube-controller-manager
+    operation: Update
+    time: "2021-12-16T17:22:30Z"
   name: tveer-api
-  namespace: deblauwe-yerl-tveer # Change to your own namespace!
+  namespace: deblauwe-yerl-tveer
+  resourceVersion: "359036639"
+  uid: 97972227-8831-4930-85bf-6ceb99c87e9d
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: tveer-api
+      workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer-tveer-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
+      annotations:
+        cattle.io/timestamp: "2021-12-16T17:22:03Z"
+      creationTimestamp: null
       labels:
-        app: tveer-api
+        workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer-tveer-api
     spec:
+      affinity: {}
       containers:
-        - image: ghcr.io/nathansegers/mlops-exam-2-fastapi:latest
-          name: tveer-api-container
-          ports:
-          - containerPort: 8080 # The interal port of the app
-            name: 8080tcp
-            protocol: TCP
-            _serviceType: ClusterIP # Register it as a ClusterIP service
-      nodeName: remy-ian 
+      - image: ghcr.io/deblauweyerl/mlops-tveer:latest
+        imagePullPolicy: Always
+        name: tveer-api-container
+        ports:
+        - containerPort: 80
+          name: 80tcp30007
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: deblauwe-yerl-ghcr
+      nodeName: deblauwe-yerl
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2021-12-16T17:17:41Z"
+    lastUpdateTime: "2021-12-16T17:17:41Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2021-12-16T17:03:37Z"
+    lastUpdateTime: "2021-12-16T17:22:30Z"
+    message: ReplicaSet "tveer-api-b7f664497" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 4
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tveer-api-svc
+  annotations:
+    field.cattle.io/targetWorkloadIds: '[''deblauwe-yerl-tveer/tveer-api'']'
+    management.cattle.io/ui-managed: "true"
+  creationTimestamp: "2021-12-16T17:03:37Z"
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:field.cattle.io/targetWorkloadIds: {}
+          f:management.cattle.io/ui-managed: {}
+        f:ownerReferences:
+          .: {}
+          k:{"uid":"97972227-8831-4930-85bf-6ceb99c87e9d"}:
+            .: {}
+            f:apiVersion: {}
+            f:controller: {}
+            f:kind: {}
+            f:name: {}
+            f:uid: {}
+      f:spec:
+        f:ports:
+          .: {}
+          k:{"port":80,"protocol":"TCP"}:
+            .: {}
+            f:name: {}
+            f:port: {}
+            f:protocol: {}
+            f:targetPort: {}
+        f:selector:
+          .: {}
+          f:workload.user.cattle.io/workloadselector: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: rancher
+    operation: Update
+    time: "2021-12-16T17:09:17Z"
+  name: tveer-api
   namespace: deblauwe-yerl-tveer
+  ownerReferences:
+  - apiVersion: apps/v1
+    controller: true
+    kind: Deployment
+    name: tveer-api
+    uid: 97972227-8831-4930-85bf-6ceb99c87e9d
+  resourceVersion: "358998711"
+  uid: 5220a5fe-a061-41f0-843e-dd3cfdb65e2f
 spec:
-  type: NodePort
+  clusterIP: 10.43.155.93
+  clusterIPs:
+  - 10.43.155.93
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: 80tcp30007
+    port: 80
+    protocol: TCP
+    targetPort: 80
   selector:
     workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer-tveer-api
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: '[{"addresses":["192.168.10.3"],"port":30007,"protocol":"TCP","serviceName":"deblauwe-yerl-tveer:tveer-api-nodeport","allNodes":true}]'
+    field.cattle.io/targetWorkloadIds: '[''deblauwe-yerl-tveer/tveer-api'']'
+    management.cattle.io/ui-managed: "true"
+  creationTimestamp: "2021-12-16T17:03:37Z"
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:field.cattle.io/publicEndpoints: {}
+          f:field.cattle.io/targetWorkloadIds: {}
+          f:management.cattle.io/ui-managed: {}
+        f:ownerReferences:
+          .: {}
+          k:{"uid":"97972227-8831-4930-85bf-6ceb99c87e9d"}:
+            .: {}
+            f:apiVersion: {}
+            f:controller: {}
+            f:kind: {}
+            f:name: {}
+            f:uid: {}
+      f:spec:
+        f:externalTrafficPolicy: {}
+        f:ports:
+          .: {}
+          k:{"port":80,"protocol":"TCP"}:
+            .: {}
+            f:name: {}
+            f:nodePort: {}
+            f:port: {}
+            f:protocol: {}
+            f:targetPort: {}
+        f:selector:
+          .: {}
+          f:workload.user.cattle.io/workloadselector: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: rancher
+    operation: Update
+    time: "2021-12-16T17:09:18Z"
+  name: tveer-api-nodeport
+  namespace: deblauwe-yerl-tveer
+  ownerReferences:
+  - apiVersion: apps/v1
+    controller: true
+    kind: Deployment
+    name: tveer-api
+    uid: 97972227-8831-4930-85bf-6ceb99c87e9d
+  resourceVersion: "358998715"
+  uid: c6c41efe-645e-43fc-8cf9-fbd1d6ef3a84
+spec:
+  clusterIP: 10.43.139.48
+  clusterIPs:
+  - 10.43.139.48
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
   ports:
-    - name: tveer-api-port
-      port: 8080
-      nodePort: 30007
+  - name: 80tcp30007
+    nodePort: 30007
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-deblauwe-yerl-tveer-tveer-api
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
