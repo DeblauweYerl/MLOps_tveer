@@ -5,19 +5,29 @@ import matplotlib.pyplot as plt
 from fastapi import FastAPI, File
 from PIL import Image
 import io
+import os
 
 app = FastAPI()
 
-model = keras.models.load_model('model/8522d1cc-40fc-4456-8ad2-4048dded0948.h5')
+models = {}
+
+model = keras.models.load_model('model/model_b221b9f2-0eef-49bd-85c3-bae8d0f0be1f.h5')
+
+@app.get("/")
+async def root():
+    return {"message": 'Everything is working!'}
 
 @app.post("/test")
 async def create_file(file: bytes = File(...)):
     image = np.array(Image.open(io.BytesIO(file)))[:,:,:3]
-    # image = resize(image, (64,64,3))
     plt.imsave('image.png', image)
-    print(image.shape)
     image = np.array([image])
-    print(image.shape)
 
     pred = model.predict(image)
-    return {"message": image.shape}
+
+    if pred[0][0] > pred[0][1]:
+        response = 'nut'
+    else:
+        response = 'bolt'
+
+    return {"message": response}
