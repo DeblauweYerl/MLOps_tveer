@@ -35,7 +35,6 @@ jobs:
           kubectl config set-context --current --namespace=deblauwyerl-tveer
           kubectl config view --minify | grep namespace:
           kubectl apply -f tveer-api.yaml --validate=false
-          kubectl get deployments
 
 
           
