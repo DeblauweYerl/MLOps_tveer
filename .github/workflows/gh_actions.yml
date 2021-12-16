@@ -18,26 +18,24 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Build and Run GitHub registry
-        run: |
-          docker build -t ghcr.io/deblauweyerl/mlops-tveer:latest api
-          docker run -d -p 80:80 ghcr.io/deblauweyerl/mlops-tveer:latest
-
-      # - name: Kubectl apply yaml file
+      # - name: Build and Run GitHub registry
       #   run: |
-      #     kubectl config set-context --current --namespace=deblauwyerl-tveer
-      #     kubectl config view --minify | grep namespace:
-      #     kubectl apply -f tveer-api.yaml --validate=false
+      #     docker build -t ghcr.io/deblauweyerl/mlops-tveer:latest api
+      #     docker run -d -p 80:80 ghcr.io/deblauweyerl/mlops-tveer:latest
 
-      
       - name: Kubectl apply yaml file
         run: |
-          kubectl get deployments
+          kubectl config set-context --current --namespace=deblauwyerl-tveer
+          kubectl config view --minify | grep namespace:
+          kubectl apply -f tveer-api.yaml --validate=false
+            kubectl get deployments
+
+
           
