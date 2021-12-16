@@ -37,6 +37,7 @@ jobs:
       
             # - name: Build and run dockerfile
 
+      - name: Build and Run GitHub registry
         run: |
           docker build ghcr.io/deblauweyerl/mlops-tveer:latest .
           docker run -d -p 80:80 ghcr.io/deblauweyerl/mlops-tveer:latest
